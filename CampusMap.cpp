@@ -32,6 +32,16 @@ void Graph::addEdge(string v1, string v2, int weight)
     }
 }
 
+bool Graph::checkHasAdjVerts(){
+	for(int i = 0; i < vertices.size(); i++){
+		if(vertices[i].adj.isEmpty()){
+			return false;
+		}else{
+			return true;
+		}
+	}
+}
+
 void Graph::addVertex(string n)
 {
     bool found = false;
@@ -171,8 +181,10 @@ void Graph::shortestPath(std::string startingCity,std::string endingCity)
     }
     if (end->district != start->district)
     {
-        cout << "No safe path between buildings" << endl;
-        return;
+        if(checkHasAdjVerts()){
+        	cout << "No safe path between buildings" << endl;
+        	return;
+        }
     }
     if (end->district == -1 || start->district == -1)
     {
@@ -244,6 +256,7 @@ void Graph::shortestDistance(std::string startingCity,std::string endingCity)
     }
     if (end->district != start->district)
     {
+    	checkAdjVerts();
         cout << "No safe path between buildings" << endl;
         return;
     }
